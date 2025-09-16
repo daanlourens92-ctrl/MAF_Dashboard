@@ -5,32 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workshop Slideshow</title>
 <style>
-body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; background: #000; color: #fff; }
-.slide { display: none; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; }
-.slide.active { display: block; opacity: 1; }
+body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+#carousel { width: 100%; height: 100%; }
+.slide { display: none; width: 100%; height: 100%; }
 .slide img { max-width: 90%; max-height: 80vh; margin-top: 20px; }
 </style>
 </head>
 <body>
-<div class="slide"><img src="01_employee.jpg" alt="Employee of the Month"></div>
-<div class="slide"><img src="02_image.jpg" alt="Slide 2"></div>
-<div class="slide"><img src="03_image.jpg" alt="Slide 3"></div>
-<div class="slide"><img src="04_image.jpg" alt="Slide 4"></div>
-<div class="slide"><img src="05_image.jpg" alt="Slide 5"></div>
+<div id="carousel">
+    <div class="slide"><img src="slideshow_images/01_employee.jpg" alt="Employee of the Month"></div>
+    <div class="slide"><img src="slideshow_images/02_image.jpg"></div>
+    <div class="slide"><img src="slideshow_images/03_image.jpg"></div>
+    <div class="slide"><img src="slideshow_images/04_image.jpg"></div>
+    <div class="slide"><img src="slideshow_images/05_image.jpg"></div>
+</div>
 <script>
-let slideIndex = 0;
-const slides = document.getElementsByClassName('slide');
-slides[0].classList.add('active');
-function showSlides() {
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove('active');
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) slideIndex = 1;
-  slides[slideIndex-1].classList.add('active');
-  setTimeout(showSlides, 30000);
-}
-setTimeout(showSlides, 30000);
+const slides = document.querySelectorAll('#carousel .slide');
+let current = 0;
+slides[current].style.display = 'block';
+setInterval(() => {
+    slides[current].style.display = 'none';
+    current = (current + 1) % slides.length;
+    slides[current].style.display = 'block';
+}, 30000);
 </script>
 </body>
 </html>

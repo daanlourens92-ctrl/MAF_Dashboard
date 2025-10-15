@@ -1,43 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workshop Slideshow</title>
 <style>
-body { margin: 0; padding: 0; background: black; display: flex; justify-content: center; align-items: center; height: 100vh; }
-#carousel { width: 100%; height: 100%; }
-.slide { display: none; width: 100%; height: 100%; text-align: center; }
-.slide img, .slide video { width: 100%; height: 100%; object-fit: contain; background: black; }
-</style>
-</head>
-<body>
+body { margin:0; padding:0; background:black; display:flex; justify-content:center; align-items:center; height:100vh; }
+#carousel { width:100%; height:100%; }
+.slide { display:none; width:100%; height:100%; text-align:center; }
+.slide img, .slide video { width:100%; height:100%; object-fit:contain; background:black; }
+</style></head><body>
 <div id="carousel">
-    <div class="slide"><video src="slideshow_images/02_clip.mp4" autoplay muted loop playsinline></video></div>
-    <div class="slide"><img src="slideshow_images/03_image.jpg" alt="03_image.jpg"></div>
-    <div class="slide"><img src="slideshow_images/04_image.jpg" alt="04_image.jpg"></div>
-    <div class="slide"><video src="slideshow_images/05_clip.mp4" autoplay muted loop playsinline></video></div>
-    <div class="slide"><video src="slideshow_images/06_clip.mp4" autoplay muted loop playsinline></video></div>
+  <div class="slide"><video src="slideshow_images/02_clip.mp4" muted playsinline autoplay loop></video></div>
+  <div class="slide"><img src="slideshow_images/03_image.jpg" alt="03_image.jpg"></div>
+  <div class="slide"><img src="slideshow_images/04_image.jpg" alt="04_image.jpg"></div>
+  <div class="slide"><video src="slideshow_images/05_clip.mp4" muted playsinline autoplay loop></video></div>
+  <div class="slide"><video src="slideshow_images/06_clip.mp4" muted playsinline autoplay loop></video></div>
 </div>
 <script>
 const slides = document.querySelectorAll('#carousel .slide');
 let current = 0;
 if (slides.length > 0) {
   slides[current].style.display = 'block';
-  const interval = setInterval(() => {
+  const firstVid = slides[current].querySelector('video');
+  if (firstVid) { firstVid.currentTime = 0; firstVid.play(); }
+  setInterval(() => {
     const currentSlide = slides[current];
-    const nextIndex = (current + 1) % slides.length;
-    const nextSlide = slides[nextIndex];
+    const currentVid = currentSlide.querySelector('video');
+    if (currentVid) { currentVid.currentTime = 0; currentVid.play(); }
     currentSlide.style.display = 'none';
-    const vid = currentSlide.querySelector('video');
-    if (vid) { vid.pause(); vid.currentTime = 0; }
+    current = (current + 1) % slides.length;
+    const nextSlide = slides[current];
     nextSlide.style.display = 'block';
     const nextVid = nextSlide.querySelector('video');
-    if (nextVid) { nextVid.play(); }
-    current = nextIndex;
+    if (nextVid) { nextVid.currentTime = 0; nextVid.play(); }
   }, 30000);
 }
 </script>
-<footer style="display:none">Updated: 2025-10-15 06:48:28</footer>
-</body>
-</html>
+<footer style="display:none">Updated: 2025-10-15 07:36:33</footer>
+</body></html>
